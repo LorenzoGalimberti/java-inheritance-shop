@@ -14,10 +14,10 @@ public class Prodotto {
     private String name;
     private  String description;
     private BigDecimal price;
-    private  BigDecimal iva;
+    private double   iva;
     // COSTRUTTORI
 
-    public Prodotto(String name, String description, BigDecimal price, BigDecimal iva) {
+    public Prodotto(String name, String description, BigDecimal price, double iva) {
         Random random = new Random();
         this.code= random.nextInt(100);
         this.name = name;
@@ -58,11 +58,11 @@ public class Prodotto {
         this.price = price;
     }
 
-    public BigDecimal getIva() {
+    public double getIva() {
         return iva;
     }
 
-    public void setIva(BigDecimal iva) {
+    public void setIva(double iva) {
         this.iva = iva;
     }
 
@@ -73,7 +73,18 @@ public class Prodotto {
     }
 
 
-    public  void taxedPrice(){
-        System.out.println( "il prezzo compreso di iva è : "+ price.multiply(iva.add(BigDecimal.valueOf(1))));
+    public  BigDecimal taxedPrice(){
+        return price.multiply(BigDecimal.valueOf(1+iva/100));
+    }
+
+    @Override
+    public String toString() {
+        return "Prodotto{" +
+                "code=" + code +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + taxedPrice() +
+                ", iva=" + iva +
+                '}';
     }
 }
